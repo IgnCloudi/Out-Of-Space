@@ -1,29 +1,25 @@
-[gd_scene load_steps=23 format=3 uid="uid://c2m47g3blt3cb"]
+[gd_scene load_steps=19 format=3 uid="uid://c2m47g3blt3cb"]
 
 [ext_resource type="PackedScene" uid="uid://b6bd5cf2ylii8" path="res://Player/Player.tscn" id="1_mmnxl"]
 [ext_resource type="Script" path="res://World/world.gd" id="1_u8jut"]
 [ext_resource type="PackedScene" uid="uid://bx65hp3602x76" path="res://sun.tscn" id="2_4pupp"]
 [ext_resource type="PackedScene" uid="uid://bffq8bmhqwdlj" path="res://SpaceBodies/IronPlanet/IronPlanet.tscn" id="3_pytf7"]
-[ext_resource type="Texture2D" uid="uid://b7gm4qm65ep1r" path="res://icon.svg" id="5_pfvlw"]
 [ext_resource type="PackedScene" uid="uid://d0hleu106t75e" path="res://SpaceBodies/Earth/earth.tscn" id="6_c2iss"]
-[ext_resource type="PackedScene" uid="uid://bx72q5nckd3t6" path="res://Items/iron_ore.tscn" id="6_ppl5b"]
 [ext_resource type="PackedScene" uid="uid://c5mwfjsbfbvly" path="res://SpaceBodies/Comet/comet.tscn" id="6_q8xch"]
-[ext_resource type="PackedScene" uid="uid://djh0hopby3u60" path="res://Items/SolarPlasma.tscn" id="9_am0fd"]
-[ext_resource type="PackedScene" uid="uid://c8dncu7i7urwq" path="res://Items/IceCrystal.tscn" id="10_n1ntp"]
 [ext_resource type="Script" path="res://World/audio_stream_player.gd" id="11_52m5b"]
 
-[sub_resource type="Gradient" id="Gradient_82oab"]
+[sub_resource type="Gradient" id="Gradient_ylyvo"]
 colors = PackedColorArray(0, 0, 0, 1, 0.0807833, 0.0807833, 0.0807833, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_454y1"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3ex1n"]
 domain_warp_enabled = true
 domain_warp_type = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j28vf"]
 seamless = true
 normalize = false
-color_ramp = SubResource("Gradient_82oab")
-noise = SubResource("FastNoiseLite_454y1")
+color_ramp = SubResource("Gradient_ylyvo")
+noise = SubResource("FastNoiseLite_3ex1n")
 
 [sub_resource type="Gradient" id="Gradient_6n4db"]
 interpolation_mode = 1
@@ -450,11 +446,6 @@ position = Vector2(412.137, -1121.28)
 rotation = 0.174172
 progress = 357.9
 
-[node name="Icon" type="Sprite2D" parent="Orbits/IronPlanetPath/PlayerPathFollow"]
-position = Vector2(0.244794, 120)
-rotation = -0.00203992
-texture = ExtResource("5_pfvlw")
-
 [node name="Line2D" type="Line2D" parent="Orbits/IronPlanetPath"]
 width = 5.0
 default_color = Color(0.493545, 0.493546, 0.493546, 1)
@@ -474,11 +465,6 @@ rotation = 0.00203992
 position = Vector2(412.658, -1125.65)
 rotation = 0.13738
 progress = 357.9
-
-[node name="Icon" type="Sprite2D" parent="Orbits/EarthPath/PlayerPathFollow"]
-position = Vector2(0.244794, 120)
-rotation = -0.00203992
-texture = ExtResource("5_pfvlw")
 
 [node name="Line2D" type="Line2D" parent="Orbits/EarthPath"]
 width = 5.0
@@ -504,11 +490,6 @@ position = Vector2(412.658, -1125.65)
 rotation = 0.13738
 progress = 357.9
 
-[node name="Icon" type="Sprite2D" parent="Orbits/CometPath/PlayerPathFollow"]
-position = Vector2(0.244794, 120)
-rotation = -0.00203992
-texture = ExtResource("5_pfvlw")
-
 [node name="Line2D" type="Line2D" parent="Orbits/CometPath"]
 width = 5.0
 
@@ -518,45 +499,6 @@ environment = SubResource("Environment_hmrc7")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="IronOre" parent="." instance=ExtResource("6_ppl5b")]
-position = Vector2(832, -3040)
-
-[node name="IronOre2" parent="." instance=ExtResource("6_ppl5b")]
-position = Vector2(880, -2992)
-
-[node name="IronOre4" parent="." instance=ExtResource("6_ppl5b")]
-position = Vector2(1120, -2936)
-
-[node name="IronOre5" parent="." instance=ExtResource("6_ppl5b")]
-position = Vector2(1208, -2960)
-
-[node name="IronOre6" parent="." instance=ExtResource("6_ppl5b")]
-position = Vector2(1296, -3016)
-
-[node name="SolarPlasma" parent="." instance=ExtResource("9_am0fd")]
-position = Vector2(1144, -3040)
-
-[node name="SolarPlasma2" parent="." instance=ExtResource("9_am0fd")]
-position = Vector2(1120, -3136)
-
-[node name="Crystal" parent="." instance=ExtResource("10_n1ntp")]
-position = Vector2(536, -3352)
-
-[node name="Crystal2" parent="." instance=ExtResource("10_n1ntp")]
-position = Vector2(456, -3368)
-
-[node name="Crystal3" parent="." instance=ExtResource("10_n1ntp")]
-position = Vector2(632, -3352)
-
-[node name="Crystal4" parent="." instance=ExtResource("10_n1ntp")]
-position = Vector2(504, -3280)
-
-[node name="Crystal5" parent="." instance=ExtResource("10_n1ntp")]
-position = Vector2(424, -3296)
-
-[node name="Crystal6" parent="." instance=ExtResource("10_n1ntp")]
-position = Vector2(600, -3280)
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 script = ExtResource("11_52m5b")
 
@@ -565,12 +507,44 @@ wait_time = 3.0
 one_shot = true
 autostart = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Border" type="Node2D" parent="."]
+position = Vector2(0, 712)
 
-[node name="Area2D" type="Area2D" parent="Node2D"]
-position = Vector2(-9184, -4776)
+[node name="Area2D" type="StaticBody2D" parent="Border"]
+position = Vector2(-7112, -4736)
+collision_layer = 15
+collision_mask = 15
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/Area2D"]
+position = Vector2(-213, 4360)
+shape = SubResource("RectangleShape2D_5ebsj")
+
+[node name="Area2D4" type="StaticBody2D" parent="Border"]
+position = Vector2(9192, -4736)
+collision_layer = 15
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/Area2D4"]
+position = Vector2(-213, 4360)
+shape = SubResource("RectangleShape2D_5ebsj")
+
+[node name="Area2D2" type="StaticBody2D" parent="Border"]
+position = Vector2(5256, -6816)
+rotation = 1.57079
+collision_layer = 15
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/Area2D2"]
+position = Vector2(-213, 4360)
+shape = SubResource("RectangleShape2D_5ebsj")
+
+[node name="Area2D3" type="StaticBody2D" parent="Border"]
+position = Vector2(5256, 8240)
+rotation = 1.57079
+collision_layer = 15
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/Area2D3"]
 position = Vector2(-213, 4360)
 shape = SubResource("RectangleShape2D_5ebsj")
 

@@ -19,7 +19,7 @@ signal BombReloadReady
 @onready var You: Sprite2D = $You
 @onready var UpgradesUI: Control = $CanvasLayer/UpgradesUI
 @onready var JetNoise: AudioStreamPlayer = $JetNoise
-
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var InvenOpen: bool = false
 @export var InEarthRange:  bool = false
@@ -37,14 +37,19 @@ var ZoomedOut: bool = false
 var PathFollow: PathFollow2D
 
 func _ready() -> void:
+	animation_player.play("Trans")
 	GlobalSingleton.PlayerInvenBar = $CanvasLayer/BagProgressBar
 	GlobalSingleton.PlayerCanvas = $CanvasLayer
 	GlobalSingleton.UpdateMainBar()
 	InOrbit.connect(OnEnteredOrbit)
 	BombExploded.connect(SetBombCoolDown)
 	BombReloadReady.connect(ReloadBomb)
+	velocity = Vector2(100,0)
+	var tween = create_tween()
+	tween.tween_property(self,"velocity",Vector2.ZERO,2).set_trans(Tween.TRANS_CUBIC)
 
 func _process(delta: float) -> void:
+	
 	if !InShop and !InvenOpen and Input.is_action_just_released("LeftGrenade") and Bombs.get_child_count() > 0:
 		Bombs.get_child(0).Throw(LeftBombSpawnLoc)
 	elif !InShop and !InvenOpen and Input.is_action_just_released("RightGrenade") and Bombs.get_child_count() > 0:

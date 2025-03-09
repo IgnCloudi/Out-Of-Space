@@ -1,0 +1,207 @@
+[gd_scene load_steps=17 format=3 uid="uid://cq8areefwr7o5"]
+
+[ext_resource type="Texture2D" uid="uid://cxlfbv1hsv2hv" path="res://MMPage.png" id="1_0t1eo"]
+[ext_resource type="Script" path="res://main_menu.gd" id="1_ahj5d"]
+[ext_resource type="FontFile" uid="uid://c0wf4hyycalyq" path="res://Fonts/orbitron-font/OrbitronBlack-n6dV.ttf" id="3_rxvup"]
+[ext_resource type="Texture2D" uid="uid://dgfj5o02tbdvt" path="res://EyeClose.png" id="4_iscy2"]
+
+[sub_resource type="Gradient" id="Gradient_82oab"]
+colors = PackedColorArray(0, 0, 0, 1, 0.0807833, 0.0807833, 0.0807833, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_454y1"]
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j3f1b"]
+seamless = true
+normalize = false
+color_ramp = SubResource("Gradient_82oab")
+noise = SubResource("FastNoiseLite_454y1")
+
+[sub_resource type="Curve" id="Curve_81mlq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.246809, 1), 0.0, 0.0, 0, 0, Vector2(0.391489, 0.769231), 0.0, 0.0, 0, 0, Vector2(0.506383, 1), 0.0, 0.0, 0, 0, Vector2(0.629787, 0.758242), 0.0, 0.0, 0, 0, Vector2(0.744681, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="CurveTexture" id="CurveTexture_nj0km"]
+curve = SubResource("Curve_81mlq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ustu7"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(200, 200, 1)
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_nj0km")
+
+[sub_resource type="Curve" id="Curve_lan81"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.808511, 0.736264), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h5elw"]
+curve = SubResource("Curve_lan81")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tyqvm"]
+particle_flag_disable_z = true
+spread = 5.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 7.0
+scale_curve = SubResource("CurveTexture_h5elw")
+
+[sub_resource type="Animation" id="Animation_42knh"]
+resource_name = "Trans"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EyeClose:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(600, -39), Vector2(600, 500)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EyeClose2:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(600, 706), Vector2(600, 100)]
+}
+
+[sub_resource type="Animation" id="Animation_eojp1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EyeClose:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(600, -39)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EyeClose2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(600, 706)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lbrat"]
+_data = {
+"RESET": SubResource("Animation_eojp1"),
+"Trans": SubResource("Animation_42knh")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahj5d")
+
+[node name="BG3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.521
+anchor_bottom = 0.534
+offset_left = -1314.0
+offset_top = -1165.0
+offset_right = 2141.81
+offset_bottom = 1224.97
+texture = SubResource("NoiseTexture2D_j3f1b")
+
+[node name="Stars" type="GPUParticles2D" parent="."]
+position = Vector2(612, 308)
+scale = Vector2(3, 3)
+amount = 75
+process_material = SubResource("ParticleProcessMaterial_ustu7")
+lifetime = 5.0
+
+[node name="MmPage2" type="Sprite2D" parent="."]
+position = Vector2(641, 308)
+scale = Vector2(3, 3)
+texture = ExtResource("1_0t1eo")
+
+[node name="MainEngineParticles" type="GPUParticles2D" parent="MmPage2"]
+position = Vector2(-108, -7)
+scale = Vector2(3, 3)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_tyqvm")
+lifetime = 1.75
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(611, 307)
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 493.0
+offset_right = 782.0
+offset_bottom = 565.0
+pivot_offset = Vector2(166, 36)
+theme_override_fonts/font = ExtResource("3_rxvup")
+theme_override_font_sizes/font_size = 64
+text = ">> Play <<
+"
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EyeClose" type="Sprite2D" parent="."]
+position = Vector2(600, -39)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_iscy2")
+
+[node name="ColorRect" type="ColorRect" parent="EyeClose"]
+offset_left = -960.0
+offset_top = -1107.0
+offset_right = 960.0
+offset_bottom = -269.0
+color = Color(0, 0, 0, 1)
+
+[node name="EyeClose2" type="Sprite2D" parent="."]
+position = Vector2(600, 706)
+rotation = -3.14159
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_iscy2")
+
+[node name="ColorRect" type="ColorRect" parent="EyeClose2"]
+offset_left = -960.0
+offset_top = -1107.0
+offset_right = 960.0
+offset_bottom = -269.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lbrat")
+}
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
