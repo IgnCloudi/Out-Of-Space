@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://c5mwfjsbfbvly"]
+
+[ext_resource type="Script" path="res://SpaceBodies/Comet/comet.gd" id="1_why8y"]
+[ext_resource type="Texture2D" uid="uid://cksdc6otgigjn" path="res://SpaceBodies/Comet/Comet.svg" id="2_1pe0u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_blnga"]
+radius = 32.0
+
+[sub_resource type="Curve" id="Curve_0wllt"]
+_data = [Vector2(0, 0.24611), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_j6sxa"]
+offsets = PackedFloat32Array(0, 0.557447, 0.791489, 0.965957)
+colors = PackedColorArray(0.691357, 0.691357, 0.691357, 0, 0.708, 0.708, 0.708, 0.877, 0.734, 0.734, 0.734, 0.918, 0.581033, 0.581033, 0.581032, 0.953)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_15vhw"]
+gradient = SubResource("Gradient_j6sxa")
+
+[sub_resource type="Curve" id="Curve_bllfa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.808511, 0.736264), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8nsym"]
+curve = SubResource("Curve_bllfa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_db38n"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 24.18
+direction = Vector3(-1, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+angular_velocity_min = 100.0
+angular_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 7.0
+scale_max = 14.0
+scale_curve = SubResource("CurveTexture_8nsym")
+color_ramp = SubResource("GradientTexture1D_15vhw")
+
+[node name="Comet" type="CharacterBody2D"]
+script = ExtResource("1_why8y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_blnga")
+
+[node name="Comet" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1pe0u")
+
+[node name="TrailLine" type="Line2D" parent="."]
+top_level = true
+position = Vector2(0, -1)
+width = 55.0
+width_curve = SubResource("Curve_0wllt")
+gradient = SubResource("Gradient_j6sxa")
+joint_mode = 2
+end_cap_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(5, 5)
+zoom = Vector2(0.1, 0.1)
+
+[node name="TrailPointTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="TrailParticles" type="GPUParticles2D" parent="."]
+position = Vector2(-1.90735e-06, 0)
+rotation = -1.57079
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_db38n")
+lifetime = 10.0
+
+[connection signal="timeout" from="TrailPointTimer" to="." method="_on_trail_point_timer_timeout"]

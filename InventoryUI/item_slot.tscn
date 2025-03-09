@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://dryv24a34flqs"]
+
+[ext_resource type="Script" path="res://InventoryUI/item_slot.gd" id="1_c4tbb"]
+
+[node name="ItemSlot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c4tbb")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 144.0
+
+[node name="TextureButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 32.0
+offset_right = 68.0
+offset_bottom = 40.0
+scale = Vector2(5, 5)
+pivot_offset = Vector2(4, 4)
+
+[node name="InteractivePanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 72.0
+offset_right = 120.0
+offset_bottom = 136.0
+
+[node name="CountText" type="Button" parent="InteractivePanel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 8.0
+offset_right = 105.0
+offset_bottom = 33.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+text = "In Inventory: 14"
+
+[node name="DropText" type="Button" parent="InteractivePanel"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 36.0
+offset_right = 84.0
+offset_bottom = 61.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+text = "Drop: 0"
+
+[node name="VSlider" type="VSlider" parent="InteractivePanel"]
+layout_mode = 0
+offset_left = 116.0
+offset_top = -64.0
+offset_right = 132.0
+offset_bottom = 66.0
+focus_mode = 0
+
+[connection signal="pressed" from="InteractivePanel/DropText" to="." method="_on_drop_text_pressed"]
+[connection signal="value_changed" from="InteractivePanel/VSlider" to="." method="_on_v_slider_value_changed"]

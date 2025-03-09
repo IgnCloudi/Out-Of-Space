@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2ku6hq0yay8j"]
+
+[ext_resource type="Texture2D" uid="uid://cey4sbpnb4wc8" path="res://SpaceBodies/UpgradeStation/SpaceStation.png" id="1_2bm8k"]
+[ext_resource type="Script" path="res://SpaceBodies/UpgradeStation/space_station.gd" id="1_5ihim"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qdjyf"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a8xqg"]
+radius = 89.6036
+
+[node name="SpaceStation" type="CharacterBody2D"]
+scale = Vector2(5, 5)
+script = ExtResource("1_5ihim")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qdjyf")
+
+[node name="SpaceStation" type="Sprite2D" parent="."]
+texture = ExtResource("1_2bm8k")
+
+[node name="InRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InRange"]
+shape = SubResource("CircleShape2D_a8xqg")

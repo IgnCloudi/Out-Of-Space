@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://deg1nkpy0w7t1"]
+
+[ext_resource type="Script" path="res://InventoryUI/inventory_ui.gd" id="1_ws6bb"]
+[ext_resource type="PackedScene" uid="uid://dryv24a34flqs" path="res://InventoryUI/item_slot.tscn" id="2_se42r"]
+[ext_resource type="Texture2D" uid="uid://ddn6rehk87wk0" path="res://InventoryUI/InvenBG.png" id="2_tb5js"]
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ws6bb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+offset_left = 144.0
+offset_top = 96.0
+offset_right = 1048.0
+offset_bottom = 552.0
+color = Color(0.081, 0.081, 0.081, 0.9)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 120.0
+offset_top = 96.0
+offset_right = 1080.0
+offset_bottom = 576.0
+scale = Vector2(0.975, 0.975)
+texture = ExtResource("2_tb5js")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 2
+offset_left = 1052.0
+offset_top = 184.0
+offset_right = 1104.0
+offset_bottom = 475.0
+fill_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 168.0
+offset_right = 992.0
+offset_bottom = 480.0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 160
+theme_override_constants/v_separation = 160
+columns = 5
+
+[node name="ItemSlot" parent="MarginContainer/GridContainer" instance=ExtResource("2_se42r")]
+layout_mode = 2
+
+[node name="ItemSlot2" parent="MarginContainer/GridContainer" instance=ExtResource("2_se42r")]
+layout_mode = 2
+
+[node name="ItemSlot3" parent="MarginContainer/GridContainer" instance=ExtResource("2_se42r")]
+layout_mode = 2

@@ -1,0 +1,188 @@
+[gd_scene load_steps=10 format=3 uid="uid://cx064a18usvhu"]
+
+[ext_resource type="Texture2D" uid="uid://co3a8o22oibt" path="res://InventoryUI/DepositUIBG.png" id="1_jwao2"]
+[ext_resource type="Script" path="res://InventoryUI/deposit_ui.gd" id="1_u56wy"]
+[ext_resource type="Texture2D" uid="uid://b4v2k6fnuiic5" path="res://MainUI/MainUI.png" id="2_p4v41"]
+[ext_resource type="Texture2D" uid="uid://qqwfghu27eqy" path="res://ItemSprites/IronOre.png" id="3_m8r33"]
+[ext_resource type="Texture2D" uid="uid://eto15wmny5m7" path="res://ItemSprites/Plasma.png" id="4_qjw7b"]
+[ext_resource type="Texture2D" uid="uid://10rcsgsvk6c4" path="res://ItemSprites/IceCrystals.png" id="5_pk4jv"]
+[ext_resource type="Texture2D" uid="uid://c7mjtimh3okua" path="res://SpaceBodies/Earth/EscortShips.png" id="6_nxwo2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xt01x"]
+texture = ExtResource("2_p4v41")
+texture_margin_left = 96.0
+texture_margin_top = 88.0
+texture_margin_right = 88.0
+texture_margin_bottom = 96.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lwbo5"]
+texture = ExtResource("2_p4v41")
+texture_margin_left = 96.0
+texture_margin_top = 88.0
+texture_margin_right = 88.0
+texture_margin_bottom = 96.0
+
+[node name="DepositUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u56wy")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.733005, 0.733005, 0.733005, 1)
+layout_mode = 0
+offset_left = -8.0
+offset_top = 4.0
+offset_right = 956.0
+offset_bottom = 188.0
+texture = ExtResource("1_jwao2")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -308.0
+offset_top = -84.0
+offset_right = -268.0
+offset_bottom = -44.0
+scale = Vector2(1.75, 1.75)
+
+[node name="Iron" type="Button" parent="Control"]
+offset_left = 224.0
+offset_top = 64.0
+offset_right = 864.0
+offset_bottom = 684.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lwbo5")
+icon = ExtResource("3_m8r33")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button" type="Button" parent="Control/Iron"]
+layout_mode = 0
+offset_left = 137.143
+offset_top = 617.143
+offset_right = 505.143
+offset_bottom = 800.143
+theme_override_font_sizes/font_size = 128
+text = "Iron: 5"
+
+[node name="Button2" type="Button" parent="Control/Iron"]
+layout_mode = 0
+offset_left = 1142.86
+offset_top = 622.857
+offset_right = 2051.86
+offset_bottom = 805.857
+theme_override_font_sizes/font_size = 128
+text = "Solar Plasma: 2"
+
+[node name="Button3" type="Button" parent="Control/Iron"]
+layout_mode = 0
+offset_left = 2262.86
+offset_top = 617.143
+offset_right = 3537.86
+offset_bottom = 800.143
+theme_override_font_sizes/font_size = 128
+text = "Crystalized Carbon: 3"
+
+[node name="Button4" type="Button" parent="Control/Iron"]
+layout_mode = 0
+offset_left = 3748.57
+offset_top = 617.143
+offset_right = 4579.57
+offset_bottom = 800.143
+theme_override_font_sizes/font_size = 128
+text = "Escort Ship: 1"
+
+[node name="Plus" type="Button" parent="Control"]
+offset_left = 288.0
+offset_top = 64.0
+offset_right = 928.0
+offset_bottom = 684.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lwbo5")
+text = "+"
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Plasma" type="Button" parent="Control"]
+offset_left = 352.0
+offset_top = 64.0
+offset_right = 992.0
+offset_bottom = 684.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lwbo5")
+icon = ExtResource("4_qjw7b")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Plus2" type="Button" parent="Control"]
+offset_left = 416.0
+offset_top = 64.0
+offset_right = 1056.0
+offset_bottom = 684.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lwbo5")
+text = "+"
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Crystal" type="Button" parent="Control"]
+offset_left = 480.0
+offset_top = 64.0
+offset_right = 1120.0
+offset_bottom = 684.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lwbo5")
+icon = ExtResource("5_pk4jv")
+icon_alignment = 1
+expand_icon = true
+
+[node name="EqualTo" type="Button" parent="Control"]
+offset_left = 544.0
+offset_top = 64.0
+offset_right = 1184.0
+offset_bottom = 684.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lwbo5")
+text = "="
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Ship" type="Button" parent="Control"]
+offset_left = 608.0
+offset_top = 64.0
+offset_right = 1248.0
+offset_bottom = 684.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lwbo5")
+icon = ExtResource("6_nxwo2")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="Control/Ship" to="." method="_on_ship_pressed"]

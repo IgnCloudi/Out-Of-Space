@@ -1,0 +1,115 @@
+[gd_scene load_steps=14 format=3 uid="uid://bffq8bmhqwdlj"]
+
+[ext_resource type="Script" path="res://World/PlanetScript.gd" id="1_an8ss"]
+[ext_resource type="Texture2D" uid="uid://b85b3soh6vrjr" path="res://SpaceBodies/IronPlanet/IronPlanet-Sheet.png" id="1_pasnk"]
+[ext_resource type="Texture2D" uid="uid://co7r0wv5d1073" path="res://SpaceBodies/IronPlanet/IronPlanetFig.svg" id="3_8p0qs"]
+[ext_resource type="PackedScene" uid="uid://d2ku6hq0yay8j" path="res://SpaceBodies/UpgradeStation/SpaceStation.tscn" id="4_c4m67"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lnafm"]
+radius = 128.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xqe7i"]
+radius = 320.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwe6y"]
+atlas = ExtResource("1_pasnk")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6c45u"]
+atlas = ExtResource("1_pasnk")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjrai"]
+atlas = ExtResource("1_pasnk")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l82r"]
+atlas = ExtResource("1_pasnk")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_437ib"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwe6y")
+}],
+"loop": true,
+"name": &"Empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c45u")
+}],
+"loop": true,
+"name": &"Full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjrai")
+}],
+"loop": true,
+"name": &"Full-1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l82r")
+}],
+"loop": true,
+"name": &"Low",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b802g"]
+radius = 128.0
+
+[sub_resource type="Curve2D" id="Curve2D_pn6gc"]
+_data = {
+"points": PackedVector2Array(-826.759, -1.68657, 826.759, 1.68657, 1.52588e-05, -1152, 0.469364, -688.873, -0.469364, 688.873, 1536, 0, 825.392, 0.881703, -825.392, -0.881703, 56, 1152, 0, 688.522, 0, -688.522, -1536, 0, -826.4, 2.70951, 826.4, -2.70951, 1.52588e-05, -1152)
+}
+point_count = 5
+
+[node name="IronPlanet" type="CharacterBody2D" groups=["GivesIron", "ItemGiver"]]
+script = ExtResource("1_an8ss")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lnafm")
+
+[node name="GravityInfluencer" type="Area2D" parent="." groups=["GravityInfluencer"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityInfluencer"]
+shape = SubResource("CircleShape2D_xqe7i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(0.75, 0.75, 0.75, 1)
+scale = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_437ib")
+animation = &"Full"
+
+[node name="ItemThrower" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemThrower"]
+shape = SubResource("CircleShape2D_b802g")
+
+[node name="IronPlanetFig" type="Sprite2D" parent="."]
+modulate = Color(0.75, 0.75, 0.75, 1)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_8p0qs")
+
+[node name="IronPlanetPath" type="Path2D" parent="."]
+position = Vector2(-3.8147e-06, 0)
+scale = Vector2(0.25, 0.25)
+curve = SubResource("Curve2D_pn6gc")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="IronPlanetPath"]
+position = Vector2(1.52588e-05, -1152)
+rotation = 0.00203992
+
+[node name="SpaceStation" parent="IronPlanetPath/PathFollow2D" instance=ExtResource("4_c4m67")]
+rotation = -0.00203992
+
+[connection signal="body_entered" from="ItemThrower" to="." method="_on_item_thrower_body_entered"]

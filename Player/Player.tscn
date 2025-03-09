@@ -1,0 +1,255 @@
+[gd_scene load_steps=25 format=3 uid="uid://b6bd5cf2ylii8"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_dwdmo"]
+[ext_resource type="Texture2D" uid="uid://drnxb7aytw4uf" path="res://Player/PlayerRotated-Sheet.png" id="2_rskfc"]
+[ext_resource type="PackedScene" uid="uid://b0s0pteuds3bj" path="res://Player/Bomb/Bomb.tscn" id="3_b4gqk"]
+[ext_resource type="PackedScene" uid="uid://deg1nkpy0w7t1" path="res://InventoryUI/Inventory UI.tscn" id="4_trccg"]
+[ext_resource type="Texture2D" uid="uid://7xxco0e04o4c" path="res://InventoryUI/BagBG.png" id="5_2xjqh"]
+[ext_resource type="Texture2D" uid="uid://7pr24oh0tpst" path="res://InventoryUI/BagSprite.png" id="5_y2xwa"]
+[ext_resource type="PackedScene" uid="uid://cx064a18usvhu" path="res://InventoryUI/DepositUI.tscn" id="6_ettkx"]
+[ext_resource type="Texture2D" uid="uid://dirrjmo13tk61" path="res://InventoryUI/InvenBarFilling1.png" id="6_myd1c"]
+[ext_resource type="FontFile" uid="uid://c0wf4hyycalyq" path="res://Fonts/orbitron-font/OrbitronBlack-n6dV.ttf" id="8_17u85"]
+[ext_resource type="Texture2D" uid="uid://b4v2k6fnuiic5" path="res://MainUI/MainUI.png" id="9_7nfb0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a3wbj"]
+radius = 24.0
+height = 48.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c8wp2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xaxme"]
+atlas = ExtResource("2_rskfc")
+region = Rect2(0, 0, 18, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0qj60"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xaxme")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve" id="Curve_bllfa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.808511, 0.736264), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8nsym"]
+curve = SubResource("Curve_bllfa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wa01u"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 25.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 7.0
+scale_curve = SubResource("CurveTexture_8nsym")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tpott"]
+radius = 216.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ksmg"]
+texture = ExtResource("9_7nfb0")
+texture_margin_left = 96.0
+texture_margin_top = 88.0
+texture_margin_right = 88.0
+texture_margin_bottom = 96.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_glcq2"]
+texture = ExtResource("9_7nfb0")
+texture_margin_left = 96.0
+texture_margin_top = 88.0
+texture_margin_right = 88.0
+texture_margin_bottom = 96.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yjb11"]
+
+[sub_resource type="Curve" id="Curve_myaak"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.246809, 1), 0.0, 0.0, 0, 0, Vector2(0.391489, 0.769231), 0.0, 0.0, 0, 0, Vector2(0.506383, 1), 0.0, 0.0, 0, 0, Vector2(0.629787, 0.758242), 0.0, 0.0, 0, 0, Vector2(0.744681, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="CurveTexture" id="CurveTexture_nj0km"]
+curve = SubResource("Curve_myaak")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mbwfw"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(200, 200, 1)
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_nj0km")
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_dwdmo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_a3wbj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_c8wp2")
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_0qj60")
+
+[node name="MainEngineParticles" type="GPUParticles2D" parent="."]
+position = Vector2(-24, 0)
+scale = Vector2(3, 3)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_wa01u")
+
+[node name="ItemPickup" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickup"]
+shape = SubResource("CircleShape2D_tpott")
+
+[node name="Bombs" type="Node2D" parent="."]
+position = Vector2(-10, 0)
+
+[node name="Bomb" parent="Bombs" instance=ExtResource("3_b4gqk")]
+position = Vector2(-22, 0)
+
+[node name="BombsInCooldown" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button2" type="Button" parent="CanvasLayer"]
+offset_left = 984.0
+offset_top = 26.0
+offset_right = 2424.0
+offset_bottom = 646.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ksmg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_glcq2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_glcq2")
+text = "Left Mouse / Q: 💥"
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yjb11")
+
+[node name="Inventory" parent="CanvasLayer/Panel" instance=ExtResource("4_trccg")]
+layout_mode = 1
+offset_left = -1008.0
+offset_right = -1008.0
+
+[node name="DepositUI" parent="CanvasLayer/Panel" instance=ExtResource("6_ettkx")]
+layout_mode = 1
+offset_left = -1008.0
+offset_top = 376.0
+offset_right = -1008.0
+offset_bottom = 376.0
+
+[node name="BagBGInside" type="NinePatchRect" parent="CanvasLayer"]
+offset_left = 48.0
+offset_top = 88.0
+offset_right = 128.0
+offset_bottom = 558.0
+scale = Vector2(0.765, 1)
+texture = ExtResource("5_2xjqh")
+patch_margin_left = 40
+patch_margin_top = 32
+patch_margin_right = 40
+patch_margin_bottom = 13
+
+[node name="BagProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = 52.0
+offset_top = 92.0
+offset_right = 132.0
+offset_bottom = 587.0
+scale = Vector2(0.662, 0.935)
+step = 0.1
+value = 100.0
+fill_mode = 3
+nine_patch_stretch = true
+stretch_margin_left = 40
+stretch_margin_top = 32
+stretch_margin_right = 40
+stretch_margin_bottom = 15
+texture_progress = ExtResource("6_myd1c")
+
+[node name="BagBG" type="NinePatchRect" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 64.0
+offset_right = 141.0
+offset_bottom = 564.0
+texture = ExtResource("5_y2xwa")
+patch_margin_left = 40
+patch_margin_top = 32
+patch_margin_right = 40
+patch_margin_bottom = 13
+
+[node name="InventoryBarText" type="Button" parent="CanvasLayer"]
+offset_left = 52.0
+offset_top = 304.0
+offset_right = 105.0
+offset_bottom = 368.0
+theme_override_fonts/font = ExtResource("8_17u85")
+theme_override_font_sizes/font_size = 27
+text = "15
+20"
+flat = true
+
+[node name="InvenBarLine" type="Button" parent="CanvasLayer"]
+offset_left = 52.0
+offset_top = 296.0
+offset_right = 106.0
+offset_bottom = 341.0
+theme_override_font_sizes/font_size = 27
+text = "____"
+flat = true
+
+[node name="Controls" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="CanvasLayer/Controls"]
+layout_mode = 0
+offset_left = 984.0
+offset_top = 26.0
+offset_right = 2424.0
+offset_bottom = 646.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ksmg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_glcq2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_glcq2")
+text = "Left Mouse / Q: 💥"
+
+[node name="Stars" type="GPUParticles2D" parent="."]
+scale = Vector2(3, 3)
+amount = 75
+process_material = SubResource("ParticleProcessMaterial_mbwfw")
+lifetime = 5.0
+
+[node name="LeftBombSpawnLoc" type="Marker2D" parent="."]
+position = Vector2(0, -24)
+
+[node name="RightBombSpawnLoc" type="Marker2D" parent="."]
+position = Vector2(0, 24)
+
+[connection signal="area_entered" from="ItemPickup" to="." method="_on_item_pickup_area_entered"]
+[connection signal="area_exited" from="ItemPickup" to="." method="_on_item_pickup_area_exited"]

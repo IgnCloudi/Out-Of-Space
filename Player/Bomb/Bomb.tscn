@@ -1,0 +1,159 @@
+[gd_scene load_steps=17 format=3 uid="uid://b0s0pteuds3bj"]
+
+[ext_resource type="Script" path="res://Player/Bomb/bomb.gd" id="1_fvfgq"]
+[ext_resource type="Texture2D" uid="uid://ce05qewkq4yhv" path="res://Player/Bomb/ExplosionRing.png" id="2_vi6im"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_85uct"]
+radius = 8.0
+
+[sub_resource type="Gradient" id="Gradient_1ru2w"]
+offsets = PackedFloat32Array(0, 0.429952, 1)
+colors = PackedColorArray(1, 0.145098, 0, 1, 1, 0.186398, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qugnv"]
+gradient = SubResource("Gradient_1ru2w")
+
+[sub_resource type="Curve" id="Curve_yyrwi"]
+_data = [Vector2(0, 0.186813), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ok66y"]
+curve = SubResource("Curve_yyrwi")
+
+[sub_resource type="Curve" id="Curve_1a2e8"]
+_data = [Vector2(0.744681, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ddg7i"]
+curve = SubResource("Curve_1a2e8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bj4dm"]
+particle_flag_disable_z = true
+initial_velocity_min = 5.0
+initial_velocity_max = 7.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_ddg7i")
+color_ramp = SubResource("GradientTexture1D_qugnv")
+emission_curve = SubResource("CurveTexture_ok66y")
+
+[sub_resource type="Gradient" id="Gradient_uc1d8"]
+offsets = PackedFloat32Array(0, 0.236715, 0.52657, 0.719807, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.396078, 0.137255, 1, 0.907124, 0.390728, 0.0283991, 1, 1, 1, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lffb4"]
+gradient = SubResource("Gradient_uc1d8")
+
+[sub_resource type="Curve" id="Curve_ndha7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.765958, 0.758242), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_j2vjs"]
+curve = SubResource("Curve_ndha7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_23p1b"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, 10, 0)
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_j2vjs")
+color_ramp = SubResource("GradientTexture1D_lffb4")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shg27"]
+radius = 9.0
+
+[node name="Bomb" type="RigidBody2D" groups=["Bomb"]]
+collision_layer = 4
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_fvfgq")
+
+[node name="ExplosionRing" type="Sprite2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("2_vi6im")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_85uct")
+
+[node name="Sprite" type="Node2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+
+[node name="ColorRect" type="ColorRect" parent="Sprite"]
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+color = Color(0.400698, 0.400698, 0.400698, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="Sprite"]
+offset_left = -0.116562
+offset_top = -0.0390625
+offset_right = 0.883438
+offset_bottom = 0.960938
+rotation = -2.35619
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="Sprite"]
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+rotation = 0.257742
+pivot_offset = Vector2(1, 1)
+color = Color(0.564962, 0.564962, 0.564962, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="Sprite"]
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+rotation = 1.04602
+pivot_offset = Vector2(1, 1)
+color = Color(0.259294, 0.259294, 0.259294, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="BombActiveParticle" type="GPUParticles2D" parent="Sprite"]
+position = Vector2(-0.166667, -1.33333)
+rotation = -2.35619
+scale = Vector2(0.5, 0.5)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_bj4dm")
+
+[node name="ExplosionParticles" type="GPUParticles2D" parent="Sprite"]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_23p1b")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+
+[node name="ExplosionTriggerRange" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionTriggerRange"]
+shape = SubResource("CircleShape2D_shg27")
+
+[node name="SpawnActivationCoolDown" type="Timer" parent="."]
+one_shot = true
+
+[node name="AfterExplosionCoolDown" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="AutoExplosionTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="area_entered" from="ExplosionTriggerRange" to="." method="_on_explosion_trigger_range_area_entered"]
+[connection signal="area_exited" from="ExplosionTriggerRange" to="." method="_on_explosion_trigger_range_area_exited"]
+[connection signal="body_entered" from="ExplosionTriggerRange" to="." method="_on_explosion_trigger_range_body_entered"]
+[connection signal="timeout" from="SpawnActivationCoolDown" to="." method="_on_spawn_cool_down_timeout"]
+[connection signal="timeout" from="AfterExplosionCoolDown" to="." method="_on_after_explosion_cool_down_timeout"]
+[connection signal="timeout" from="AutoExplosionTimer" to="." method="_on_auto_explosion_timer_timeout"]

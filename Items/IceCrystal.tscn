@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8dncu7i7urwq"]
+
+[ext_resource type="Script" path="res://Items/ice_crystal.gd" id="1_h1157"]
+[ext_resource type="Texture2D" uid="uid://10rcsgsvk6c4" path="res://ItemSprites/IceCrystals.png" id="1_v3byi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vpwc4"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_87lkt"]
+radius = 32.0
+
+[node name="Crystal" type="CharacterBody2D" groups=["Item"]]
+script = ExtResource("1_h1157")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vpwc4")
+
+[node name="IceCrystals" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_v3byi")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_87lkt")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

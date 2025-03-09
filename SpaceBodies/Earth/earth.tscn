@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0hleu106t75e"]
+
+[ext_resource type="Script" path="res://SpaceBodies/Earth/earth.gd" id="1_aycg6"]
+[ext_resource type="Texture2D" uid="uid://cud1lqvmxwij7" path="res://SpaceBodies/Earth/EarthFig.svg" id="2_gqrhx"]
+[ext_resource type="Texture2D" uid="uid://dr6ir411a1d2e" path="res://SpaceBodies/Earth/Buildings.svg" id="3_uqqkk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bw4nn"]
+radius = 128.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3jaf"]
+size = Vector2(106.333, 89.4105)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1aqle"]
+size = Vector2(109.848, 99.6092)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mr0pu"]
+size = Vector2(107.011, 77.7241)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qqorp"]
+radius = 280.0
+
+[node name="Earth" type="CharacterBody2D"]
+script = ExtResource("1_aycg6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bw4nn")
+
+[node name="EarthFig" type="Sprite2D" parent="."]
+modulate = Color(0.4, 0.4, 0.4, 1)
+z_index = 1
+scale = Vector2(0.57, 0.57)
+texture = ExtResource("2_gqrhx")
+
+[node name="Building" type="CharacterBody2D" parent="."]
+position = Vector2(-141, -7)
+rotation = -1.61944
+scale = Vector2(0.57, 0.57)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building"]
+position = Vector2(-2.51999, 9.65906)
+shape = SubResource("RectangleShape2D_r3jaf")
+
+[node name="Buildings2" type="Sprite2D" parent="Building"]
+modulate = Color(0.25, 0.25, 0.25, 1)
+z_index = 1
+texture = ExtResource("3_uqqkk")
+
+[node name="Building2" type="CharacterBody2D" parent="."]
+position = Vector2(141, 8)
+rotation = 1.4608
+scale = Vector2(0.57, 0.57)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building2"]
+position = Vector2(-0.481468, 4.2527)
+shape = SubResource("RectangleShape2D_1aqle")
+
+[node name="Buildings" type="Sprite2D" parent="Building2"]
+modulate = Color(0.25, 0.25, 0.25, 1)
+z_index = 1
+texture = ExtResource("3_uqqkk")
+
+[node name="Building3" type="CharacterBody2D" parent="."]
+position = Vector2(16, -142)
+rotation = -0.0109051
+scale = Vector2(0.57, 0.57)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Building3"]
+position = Vector2(-2.63143, 1.46732)
+shape = SubResource("RectangleShape2D_mr0pu")
+
+[node name="Buildings3" type="Sprite2D" parent="Building3"]
+modulate = Color(0.25, 0.25, 0.25, 1)
+texture = ExtResource("3_uqqkk")
+
+[node name="DepositArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DepositArea"]
+shape = SubResource("CircleShape2D_qqorp")
+
+[connection signal="body_entered" from="DepositArea" to="." method="_on_deposit_area_body_entered"]
+[connection signal="body_exited" from="DepositArea" to="." method="_on_deposit_area_body_exited"]

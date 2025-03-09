@@ -1,0 +1,625 @@
+[gd_scene load_steps=21 format=3 uid="uid://c2m47g3blt3cb"]
+
+[ext_resource type="PackedScene" uid="uid://b6bd5cf2ylii8" path="res://Player/Player.tscn" id="1_mmnxl"]
+[ext_resource type="Script" path="res://World/world.gd" id="1_u8jut"]
+[ext_resource type="PackedScene" uid="uid://bx65hp3602x76" path="res://sun.tscn" id="2_4pupp"]
+[ext_resource type="PackedScene" uid="uid://bffq8bmhqwdlj" path="res://SpaceBodies/IronPlanet/IronPlanet.tscn" id="3_pytf7"]
+[ext_resource type="Texture2D" uid="uid://b7gm4qm65ep1r" path="res://icon.svg" id="5_pfvlw"]
+[ext_resource type="PackedScene" uid="uid://d0hleu106t75e" path="res://SpaceBodies/Earth/earth.tscn" id="6_c2iss"]
+[ext_resource type="PackedScene" uid="uid://bx72q5nckd3t6" path="res://Items/iron_ore.tscn" id="6_ppl5b"]
+[ext_resource type="PackedScene" uid="uid://c5mwfjsbfbvly" path="res://SpaceBodies/Comet/comet.tscn" id="6_q8xch"]
+[ext_resource type="PackedScene" uid="uid://djh0hopby3u60" path="res://Items/SolarPlasma.tscn" id="9_am0fd"]
+[ext_resource type="PackedScene" uid="uid://c8dncu7i7urwq" path="res://Items/IceCrystal.tscn" id="10_n1ntp"]
+
+[sub_resource type="Gradient" id="Gradient_82oab"]
+colors = PackedColorArray(0, 0, 0, 1, 0.0807833, 0.0807833, 0.0807833, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_454y1"]
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j28vf"]
+seamless = true
+normalize = false
+color_ramp = SubResource("Gradient_82oab")
+noise = SubResource("FastNoiseLite_454y1")
+
+[sub_resource type="Gradient" id="Gradient_6n4db"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.895397)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o0uhq"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qec4v"]
+seamless = true
+seamless_blend_skirt = 0.0
+color_ramp = SubResource("Gradient_6n4db")
+noise = SubResource("FastNoiseLite_o0uhq")
+
+[sub_resource type="Curve2D" id="Curve2D_04owo"]
+_data = {
+"points": PackedVector2Array(-826.759, -1.68657, 826.759, 1.68657, 56, -1152, 0.469364, -688.873, -0.469364, 688.873, 1520, 0, 825.392, 0.881703, -825.392, -0.881703, 56, 1152, 0, 688.522, 0, -688.522, -1296, 0, -826.4, 2.70951, 826.4, -2.70951, 56, -1152)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_2quks"]
+_data = {
+"points": PackedVector2Array(-826.759, -1.68657, 826.759, 1.68657, 56, -1152, 0.469364, -688.873, -0.469364, 688.873, 2127.22, 13.7536, 825.392, 0.881703, -825.392, -0.881703, 56, 1152, 0, 688.522, 0, -688.522, -1590.83, -18.3381, -826.4, 2.70951, 826.4, -2.70951, 56, -1152)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_8pygq"]
+_data = {
+"points": PackedVector2Array(-826.759, -1.68657, 826.759, 1.68657, 56, -1152, 0.469364, -688.873, -0.469364, 688.873, 2127.22, 13.7536, 825.392, 0.881703, -825.392, -0.881703, 56, 1152, 0, 688.522, 0, -688.522, -1590.83, -18.3381, -826.4, 2.70951, 826.4, -2.70951, 56, -1152)
+}
+point_count = 5
+
+[sub_resource type="Environment" id="Environment_hmrc7"]
+background_mode = 3
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 2.0
+glow_bloom = 0.25
+fog_mode = 1
+fog_sun_scatter = 1.0
+fog_density = 1.0
+adjustment_enabled = true
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_u8jut")
+
+[node name="AllBG" type="Node2D" parent="."]
+
+[node name="BG" type="TextureRect" parent="AllBG"]
+offset_left = -2088.0
+offset_top = -1408.0
+offset_right = 1968.0
+offset_bottom = 1328.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG2" type="TextureRect" parent="AllBG"]
+offset_left = 1968.0
+offset_top = -1408.0
+offset_right = 6024.0
+offset_bottom = 1328.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG3" type="TextureRect" parent="AllBG"]
+offset_left = -2088.0
+offset_top = -4144.0
+offset_right = 1968.0
+offset_bottom = -1408.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG4" type="TextureRect" parent="AllBG"]
+offset_left = 1968.0
+offset_top = -4144.0
+offset_right = 6024.0
+offset_bottom = -1408.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG5" type="TextureRect" parent="AllBG"]
+offset_left = -10200.0
+offset_top = -1408.0
+offset_right = -6144.0
+offset_bottom = 1328.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG6" type="TextureRect" parent="AllBG"]
+offset_left = -6144.0
+offset_top = -1408.0
+offset_right = -2088.0
+offset_bottom = 1328.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG7" type="TextureRect" parent="AllBG"]
+offset_left = -10200.0
+offset_top = -4144.0
+offset_right = -6144.0
+offset_bottom = -1408.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG9" type="TextureRect" parent="AllBG"]
+offset_left = 6024.0
+offset_top = -1408.0
+offset_right = 10080.0
+offset_bottom = 1328.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG10" type="TextureRect" parent="AllBG"]
+offset_left = 6024.0
+offset_top = -4144.0
+offset_right = 10080.0
+offset_bottom = -1408.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG8" type="TextureRect" parent="AllBG"]
+offset_left = -6144.0
+offset_top = -4144.0
+offset_right = -2088.0
+offset_bottom = -1408.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG11" type="TextureRect" parent="AllBG"]
+offset_left = -2088.0
+offset_top = -6880.0
+offset_right = 1968.0
+offset_bottom = -4144.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG12" type="TextureRect" parent="AllBG"]
+offset_left = 1968.0
+offset_top = -6880.0
+offset_right = 6024.0
+offset_bottom = -4144.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG13" type="TextureRect" parent="AllBG"]
+offset_left = -2088.0
+offset_top = -9616.0
+offset_right = 1968.0
+offset_bottom = -6880.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG14" type="TextureRect" parent="AllBG"]
+offset_left = 1968.0
+offset_top = -9616.0
+offset_right = 6024.0
+offset_bottom = -6880.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG15" type="TextureRect" parent="AllBG"]
+offset_left = -10200.0
+offset_top = -6880.0
+offset_right = -6144.0
+offset_bottom = -4144.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG16" type="TextureRect" parent="AllBG"]
+offset_left = -6144.0
+offset_top = -6880.0
+offset_right = -2088.0
+offset_bottom = -4144.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG17" type="TextureRect" parent="AllBG"]
+offset_left = -10200.0
+offset_top = -9616.0
+offset_right = -6144.0
+offset_bottom = -6880.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG18" type="TextureRect" parent="AllBG"]
+offset_left = 6024.0
+offset_top = -6880.0
+offset_right = 10080.0
+offset_bottom = -4144.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG19" type="TextureRect" parent="AllBG"]
+offset_left = 6024.0
+offset_top = -9616.0
+offset_right = 10080.0
+offset_bottom = -6880.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG20" type="TextureRect" parent="AllBG"]
+offset_left = -6144.0
+offset_top = -9616.0
+offset_right = -2088.0
+offset_bottom = -6880.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG31" type="TextureRect" parent="AllBG"]
+offset_left = -2088.0
+offset_top = 6800.0
+offset_right = 1968.0
+offset_bottom = 9536.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG32" type="TextureRect" parent="AllBG"]
+offset_left = 1968.0
+offset_top = 6800.0
+offset_right = 6024.0
+offset_bottom = 9536.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG33" type="TextureRect" parent="AllBG"]
+offset_left = -10200.0
+offset_top = 6800.0
+offset_right = -6144.0
+offset_bottom = 9536.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG34" type="TextureRect" parent="AllBG"]
+offset_left = 6024.0
+offset_top = 6800.0
+offset_right = 10080.0
+offset_bottom = 9536.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG35" type="TextureRect" parent="AllBG"]
+offset_left = -6144.0
+offset_top = 6800.0
+offset_right = -2088.0
+offset_bottom = 9536.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG21" type="TextureRect" parent="AllBG"]
+offset_left = -2088.0
+offset_top = 4064.0
+offset_right = 1968.0
+offset_bottom = 6800.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG22" type="TextureRect" parent="AllBG"]
+offset_left = 1968.0
+offset_top = 4064.0
+offset_right = 6024.0
+offset_bottom = 6800.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG23" type="TextureRect" parent="AllBG"]
+offset_left = -2088.0
+offset_top = 1328.0
+offset_right = 1968.0
+offset_bottom = 4064.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG24" type="TextureRect" parent="AllBG"]
+offset_left = 1968.0
+offset_top = 1328.0
+offset_right = 6024.0
+offset_bottom = 4064.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG25" type="TextureRect" parent="AllBG"]
+offset_left = -10200.0
+offset_top = 4064.0
+offset_right = -6144.0
+offset_bottom = 6800.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG26" type="TextureRect" parent="AllBG"]
+offset_left = -6144.0
+offset_top = 4064.0
+offset_right = -2088.0
+offset_bottom = 6800.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG27" type="TextureRect" parent="AllBG"]
+offset_left = -10200.0
+offset_top = 1328.0
+offset_right = -6144.0
+offset_bottom = 4064.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG36" type="TextureRect" parent="AllBG"]
+offset_left = -14256.0
+offset_top = -1408.0
+offset_right = -10200.0
+offset_bottom = 1328.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG37" type="TextureRect" parent="AllBG"]
+offset_left = -14256.0
+offset_top = -4144.0
+offset_right = -10200.0
+offset_bottom = -1408.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG38" type="TextureRect" parent="AllBG"]
+offset_left = -14256.0
+offset_top = -6880.0
+offset_right = -10200.0
+offset_bottom = -4144.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG39" type="TextureRect" parent="AllBG"]
+offset_left = -14256.0
+offset_top = -9616.0
+offset_right = -10200.0
+offset_bottom = -6880.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG40" type="TextureRect" parent="AllBG"]
+offset_left = -14256.0
+offset_top = 6800.0
+offset_right = -10200.0
+offset_bottom = 9536.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG41" type="TextureRect" parent="AllBG"]
+offset_left = -14256.0
+offset_top = 4064.0
+offset_right = -10200.0
+offset_bottom = 6800.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG42" type="TextureRect" parent="AllBG"]
+offset_left = -14256.0
+offset_top = 1328.0
+offset_right = -10200.0
+offset_bottom = 4064.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG28" type="TextureRect" parent="AllBG"]
+offset_left = 6024.0
+offset_top = 4064.0
+offset_right = 10080.0
+offset_bottom = 6800.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG29" type="TextureRect" parent="AllBG"]
+offset_left = 6024.0
+offset_top = 1328.0
+offset_right = 10080.0
+offset_bottom = 4064.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG43" type="TextureRect" parent="AllBG"]
+offset_left = 10080.0
+offset_top = -1408.0
+offset_right = 14136.0
+offset_bottom = 1328.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG44" type="TextureRect" parent="AllBG"]
+offset_left = 10080.0
+offset_top = -4144.0
+offset_right = 14136.0
+offset_bottom = -1408.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG45" type="TextureRect" parent="AllBG"]
+offset_left = 10080.0
+offset_top = -6880.0
+offset_right = 14136.0
+offset_bottom = -4144.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG46" type="TextureRect" parent="AllBG"]
+offset_left = 10080.0
+offset_top = -9616.0
+offset_right = 14136.0
+offset_bottom = -6880.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG47" type="TextureRect" parent="AllBG"]
+offset_left = 10080.0
+offset_top = 6800.0
+offset_right = 14136.0
+offset_bottom = 9536.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG48" type="TextureRect" parent="AllBG"]
+offset_left = 10080.0
+offset_top = 4064.0
+offset_right = 14136.0
+offset_bottom = 6800.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG49" type="TextureRect" parent="AllBG"]
+offset_left = 10080.0
+offset_top = 1328.0
+offset_right = 14136.0
+offset_bottom = 4064.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="BG30" type="TextureRect" parent="AllBG"]
+offset_left = -6144.0
+offset_top = 1328.0
+offset_right = -2088.0
+offset_bottom = 4064.0
+texture = SubResource("NoiseTexture2D_j28vf")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
+offset_left = -20816.0
+offset_top = -18200.0
+offset_right = 18640.0
+offset_bottom = 16656.0
+texture = SubResource("NoiseTexture2D_qec4v")
+
+[node name="Player" parent="." instance=ExtResource("1_mmnxl")]
+position = Vector2(992, -2976)
+
+[node name="Sun" parent="." instance=ExtResource("2_4pupp")]
+
+[node name="Orbits" type="Node2D" parent="."]
+
+[node name="IronPlanetPath" type="Path2D" parent="Orbits"]
+position = Vector2(-56, 0)
+scale = Vector2(1.5, 1.5)
+curve = SubResource("Curve2D_04owo")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Orbits/IronPlanetPath"]
+position = Vector2(56, -1152)
+rotation = 0.00203992
+
+[node name="IronPlanet" parent="Orbits/IronPlanetPath/PathFollow2D" instance=ExtResource("3_pytf7")]
+z_index = 1
+
+[node name="PlayerPathFollow" type="PathFollow2D" parent="Orbits/IronPlanetPath"]
+position = Vector2(412.137, -1121.28)
+rotation = 0.174172
+progress = 357.9
+
+[node name="Icon" type="Sprite2D" parent="Orbits/IronPlanetPath/PlayerPathFollow"]
+position = Vector2(0.244794, 120)
+rotation = -0.00203992
+texture = ExtResource("5_pfvlw")
+
+[node name="Line2D" type="Line2D" parent="Orbits/IronPlanetPath"]
+width = 5.0
+default_color = Color(0.493545, 0.493546, 0.493546, 1)
+
+[node name="EarthPath" type="Path2D" parent="Orbits"]
+position = Vector2(-56, 0)
+scale = Vector2(2.5, 2.5)
+curve = SubResource("Curve2D_2quks")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Orbits/EarthPath"]
+position = Vector2(56, -1152)
+rotation = 0.00203992
+
+[node name="Earth" parent="Orbits/EarthPath/PathFollow2D" instance=ExtResource("6_c2iss")]
+
+[node name="PlayerPathFollow" type="PathFollow2D" parent="Orbits/EarthPath"]
+position = Vector2(412.658, -1125.65)
+rotation = 0.13738
+progress = 357.9
+
+[node name="Icon" type="Sprite2D" parent="Orbits/EarthPath/PlayerPathFollow"]
+position = Vector2(0.244794, 120)
+rotation = -0.00203992
+texture = ExtResource("5_pfvlw")
+
+[node name="Line2D" type="Line2D" parent="Orbits/EarthPath"]
+width = 5.0
+default_color = Color(0.282498, 0.479138, 0.931352, 1)
+
+[node name="CometPath" type="Path2D" parent="Orbits"]
+position = Vector2(296, 3248)
+rotation = -1.67552
+scale = Vector2(2, 2)
+curve = SubResource("Curve2D_8pygq")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Orbits/CometPath"]
+position = Vector2(492.232, 1116.41)
+rotation = 2.98776
+progress = 4675.11
+
+[node name="Comet" parent="Orbits/CometPath/PathFollow2D" instance=ExtResource("6_q8xch")]
+rotation = 1.67348
+scale = Vector2(0.5, 0.5)
+
+[node name="PlayerPathFollow" type="PathFollow2D" parent="Orbits/CometPath"]
+position = Vector2(412.658, -1125.65)
+rotation = 0.13738
+progress = 357.9
+
+[node name="Icon" type="Sprite2D" parent="Orbits/CometPath/PlayerPathFollow"]
+position = Vector2(0.244794, 120)
+rotation = -0.00203992
+texture = ExtResource("5_pfvlw")
+
+[node name="Line2D" type="Line2D" parent="Orbits/CometPath"]
+width = 5.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hmrc7")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="IronOre" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(488, -720)
+
+[node name="IronOre2" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(536, -672)
+
+[node name="IronOre4" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(776, -616)
+
+[node name="IronOre5" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(864, -640)
+
+[node name="IronOre6" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(952, -696)
+
+[node name="IronOre7" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(1000, -768)
+
+[node name="IronOre8" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(1048, -816)
+
+[node name="IronOre9" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(1120, -864)
+
+[node name="IronOre10" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(1160, -936)
+
+[node name="IronOre11" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(1240, -792)
+
+[node name="IronOre12" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(1192, -704)
+
+[node name="IronOre13" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(1120, -624)
+
+[node name="IronOre14" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(1016, -528)
+
+[node name="IronOre15" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(920, -472)
+
+[node name="IronOre16" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(824, -456)
+
+[node name="IronOre17" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(696, -504)
+
+[node name="IronOre18" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(592, -536)
+
+[node name="IronOre19" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(480, -568)
+
+[node name="IronOre20" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(384, -624)
+
+[node name="IronOre21" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(232, -688)
+
+[node name="IronOre22" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(296, -760)
+
+[node name="IronOre3" parent="." instance=ExtResource("6_ppl5b")]
+position = Vector2(600, -632)
+
+[node name="SolarPlasma" parent="." instance=ExtResource("9_am0fd")]
+position = Vector2(1056, -1056)
+
+[node name="SolarPlasma2" parent="." instance=ExtResource("9_am0fd")]
+position = Vector2(1032, -1152)
+
+[node name="SolarPlasma3" parent="." instance=ExtResource("9_am0fd")]
+position = Vector2(1128, -1152)
+
+[node name="SolarPlasma4" parent="." instance=ExtResource("9_am0fd")]
+position = Vector2(1144, -1056)
+
+[node name="SolarPlasma5" parent="." instance=ExtResource("9_am0fd")]
+position = Vector2(1224, -1096)
+
+[node name="Crystal" parent="." instance=ExtResource("10_n1ntp")]
+position = Vector2(848, -1240)
+
+[node name="Crystal2" parent="." instance=ExtResource("10_n1ntp")]
+position = Vector2(768, -1256)
+
+[node name="Crystal3" parent="." instance=ExtResource("10_n1ntp")]
+position = Vector2(944, -1240)
+
+[node name="Crystal4" parent="." instance=ExtResource("10_n1ntp")]
+position = Vector2(880, -1312)
+
+[node name="Crystal5" parent="." instance=ExtResource("10_n1ntp")]
+position = Vector2(744, -1336)
+
+[node name="Crystal6" parent="." instance=ExtResource("10_n1ntp")]
+position = Vector2(656, -1267)
+
+[node name="Crystal7" parent="." instance=ExtResource("10_n1ntp")]
+position = Vector2(648, -1360)
+
+[node name="Crystal8" parent="." instance=ExtResource("10_n1ntp")]
+position = Vector2(1032, -1312)
+
+[node name="Crystal9" parent="." instance=ExtResource("10_n1ntp")]
+position = Vector2(832, -1376)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

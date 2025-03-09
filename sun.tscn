@@ -1,0 +1,261 @@
+[gd_scene load_steps=20 format=3 uid="uid://bx65hp3602x76"]
+
+[ext_resource type="Shader" uid="uid://o40dduvcqiah" path="res://sun.tres" id="1_kac2w"]
+[ext_resource type="Script" path="res://sun.gd" id="1_lmkw6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w8ufl"]
+radius = 212.038
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bhfeq"]
+radius = 742.4
+
+[sub_resource type="Gradient" id="Gradient_hf2x3"]
+offsets = PackedFloat32Array(0, 0.429952, 1)
+colors = PackedColorArray(1, 0.145098, 0, 1, 1, 0.186398, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4xspg"]
+gradient = SubResource("Gradient_hf2x3")
+
+[sub_resource type="Curve" id="Curve_bwsr4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.428571, 0.989011), 0.0, 0.0, 0, 0, Vector2(0.844538, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_v8c63"]
+curve = SubResource("Curve_bwsr4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cvgaq"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(2, 2, 2)
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector3(1, 1, 0)
+spread = 25.0
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+angular_velocity_min = 30.0
+angular_velocity_max = 80.0
+orbit_velocity_min = 0.0500001
+orbit_velocity_max = 0.0750001
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = 21.9
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 30.0
+scale_curve = SubResource("CurveTexture_v8c63")
+color_ramp = SubResource("GradientTexture1D_4xspg")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hl844"]
+size = Vector2(238.127, 335.542)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0trma"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(2, 2, 2)
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector3(1, -1, 0)
+spread = 25.0
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+angular_velocity_min = 30.0
+angular_velocity_max = 80.0
+orbit_velocity_min = 0.0500001
+orbit_velocity_max = 0.0750001
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = 21.9
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 30.0
+scale_curve = SubResource("CurveTexture_v8c63")
+color_ramp = SubResource("GradientTexture1D_4xspg")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hn1k"]
+size = Vector2(176, 242)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ktc4"]
+size = Vector2(346.55, 181.946)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oh27j"]
+size = Vector2(263.775, 154.842)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_45sdj"]
+shader = ExtResource("1_kac2w")
+
+[sub_resource type="Gradient" id="Gradient_n1bbx"]
+offsets = PackedFloat32Array(0.483471, 0.61157)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ppysl"]
+gradient = SubResource("Gradient_n1bbx")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_3nsr8"]
+offsets = PackedFloat32Array(0.0330578, 0.227273, 0.690083)
+colors = PackedColorArray(1, 1, 1, 0.772, 1, 1, 1, 0.728302, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_43ip8"]
+gradient = SubResource("Gradient_3nsr8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Sun" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_lmkw6")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_w8ufl")
+
+[node name="GravityInfluencer" type="Area2D" parent="." groups=["GravityInfluencer"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityInfluencer"]
+shape = SubResource("CircleShape2D_bhfeq")
+
+[node name="SolarFlareTopLeft" type="GPUParticles2D" parent="."]
+position = Vector2(-216, -124)
+rotation = 2.84892
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_cvgaq")
+lifetime = 2.0
+fixed_fps = 60
+
+[node name="TopLeftArea" type="Area2D" parent="SolarFlareTopLeft"]
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SolarFlareTopLeft/TopLeftArea"]
+position = Vector2(20.9686, 157.771)
+shape = SubResource("RectangleShape2D_hl844")
+
+[node name="SolarFlareTopRight" type="GPUParticles2D" parent="."]
+position = Vector2(176, -160)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_0trma")
+lifetime = 2.0
+fixed_fps = 60
+
+[node name="TopRightArea" type="Area2D" parent="SolarFlareTopRight"]
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SolarFlareTopRight/TopRightArea"]
+position = Vector2(12, -111)
+shape = SubResource("RectangleShape2D_6hn1k")
+
+[node name="SolarFlareBottomLeft" type="GPUParticles2D" parent="."]
+position = Vector2(-188, 108)
+rotation = -3.43427
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_0trma")
+lifetime = 2.0
+fixed_fps = 60
+
+[node name="BottomLeftArea" type="Area2D" parent="SolarFlareBottomLeft"]
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SolarFlareBottomLeft/BottomLeftArea"]
+position = Vector2(163.275, -41.5636)
+shape = SubResource("RectangleShape2D_2ktc4")
+
+[node name="SolarFlareBottomRight" type="GPUParticles2D" parent="."]
+position = Vector2(152, 136)
+rotation = -6.30569
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_cvgaq")
+lifetime = 2.0
+fixed_fps = 60
+
+[node name="BottomRightArea" type="Area2D" parent="SolarFlareBottomRight"]
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SolarFlareBottomRight/BottomRightArea"]
+position = Vector2(121.887, 24.3155)
+shape = SubResource("RectangleShape2D_oh27j")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(5, 5, 5, 0.5)
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_45sdj")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = -264.0
+offset_right = 248.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.25, 1.25)
+pivot_offset = Vector2(264, 264)
+texture = SubResource("GradientTexture2D_ppysl")
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color(5, 5, 5, 0.5)
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_45sdj")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = -264.0
+offset_right = 248.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.25, 1.25)
+pivot_offset = Vector2(264, 264)
+texture = SubResource("GradientTexture2D_ppysl")
+stretch_mode = 4
+
+[node name="AreaAround" type="TextureRect" parent="."]
+modulate = Color(5, 5, 5, 0.5)
+texture_filter = 2
+material = SubResource("ShaderMaterial_45sdj")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = -264.0
+offset_right = 248.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+pivot_offset = Vector2(264, 264)
+texture = SubResource("GradientTexture2D_43ip8")
+stretch_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="SolarFlareCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SolarFlareDuration" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="body_entered" from="SolarFlareTopLeft/TopLeftArea" to="." method="_on_top_left_area_body_entered"]
+[connection signal="body_entered" from="SolarFlareTopRight/TopRightArea" to="." method="_on_top_right_area_body_entered"]
+[connection signal="body_entered" from="SolarFlareBottomLeft/BottomLeftArea" to="." method="_on_bottom_left_area_body_entered"]
+[connection signal="body_entered" from="SolarFlareBottomRight/BottomRightArea" to="." method="_on_bottom_right_area_body_entered"]
+[connection signal="timeout" from="SolarFlareCooldown" to="." method="_on_solar_flare_timer_timeout"]
+[connection signal="timeout" from="SolarFlareCooldown" to="." method="_on_solar_flare_cooldown_timeout"]
+[connection signal="timeout" from="SolarFlareDuration" to="." method="_on_solar_flare_duration_timeout"]

@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://djh0hopby3u60"]
+
+[ext_resource type="Script" path="res://Items/solar_plasma.gd" id="1_irc34"]
+[ext_resource type="Texture2D" uid="uid://eto15wmny5m7" path="res://ItemSprites/Plasma.png" id="1_pt8ox"]
+[ext_resource type="Texture2D" uid="uid://cog3ud7otod0j" path="res://ItemSprites/PlasmaSmol.png" id="3_vtny1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hiey2"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j3elm"]
+radius = 32.0
+
+[node name="SolarPlasma" type="CharacterBody2D" groups=["Item"]]
+collision_layer = 2
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_irc34")
+
+[node name="Plasma" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 2
+texture = ExtResource("1_pt8ox")
+
+[node name="PlasmaSmol" type="Sprite2D" parent="."]
+texture_filter = 2
+scale = Vector2(2, 2)
+texture = ExtResource("3_vtny1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hiey2")
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_j3elm")
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
