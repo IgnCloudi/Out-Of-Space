@@ -6,7 +6,7 @@ uniform vec2 noise_pan_speed = vec2(0.1, 0.1); // Adjust speed
 
 void fragment() {
     vec2 uv = UV;
-    
+
     // Move the noise texture
     vec2 panned_uv = UV + TIME * noise_pan_speed;
 
