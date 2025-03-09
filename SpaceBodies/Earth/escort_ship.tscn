@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://62coon4pljav"]
+
+[ext_resource type="Script" path="res://SpaceBodies/Earth/escort_ship.gd" id="1_chmcp"]
+[ext_resource type="Texture2D" uid="uid://c7mjtimh3okua" path="res://SpaceBodies/Earth/EscortShips.png" id="1_psqn6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hbmrr"]
+
+[sub_resource type="Curve" id="Curve_8psle"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.808511, 0.736264), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ca5ls"]
+curve = SubResource("Curve_8psle")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0vmrr"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 10.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_ca5ls")
+
+[node name="EscortShip" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_chmcp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hbmrr")
+
+[node name="EscortShips" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+rotation = -1.57079
+texture = ExtResource("1_psqn6")
+
+[node name="MainEngineParticles" type="GPUParticles2D" parent="."]
+position = Vector2(-8, 12)
+rotation = -1.5708
+scale = Vector2(3, 3)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_0vmrr")
+
+[node name="MainEngineParticles2" type="GPUParticles2D" parent="."]
+position = Vector2(8, 12)
+rotation = -1.5708
+scale = Vector2(3, 3)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_0vmrr")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(8, 12)
+rotation = -1.5708
+scale = Vector2(3, 3)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

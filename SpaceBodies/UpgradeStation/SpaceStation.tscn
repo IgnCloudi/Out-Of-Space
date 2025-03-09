@@ -20,6 +20,10 @@ shape = SubResource("CircleShape2D_qdjyf")
 texture = ExtResource("1_2bm8k")
 
 [node name="InRange" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InRange"]
 shape = SubResource("CircleShape2D_a8xqg")
+
+[connection signal="body_entered" from="InRange" to="." method="_on_in_range_body_entered"]
+[connection signal="body_exited" from="InRange" to="." method="_on_in_range_body_exited"]

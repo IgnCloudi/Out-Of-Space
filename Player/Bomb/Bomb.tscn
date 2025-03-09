@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://b0s0pteuds3bj"]
+[gd_scene load_steps=18 format=3 uid="uid://b0s0pteuds3bj"]
 
 [ext_resource type="Script" path="res://Player/Bomb/bomb.gd" id="1_fvfgq"]
 [ext_resource type="Texture2D" uid="uid://ce05qewkq4yhv" path="res://Player/Bomb/ExplosionRing.png" id="2_vi6im"]
+[ext_resource type="AudioStream" uid="uid://dt37u42l3getg" path="res://SFX/Explosion.mp3" id="3_chtwe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_85uct"]
 radius = 8.0
@@ -150,6 +151,9 @@ one_shot = true
 [node name="AutoExplosionTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="ExplosionSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_chtwe")
 
 [connection signal="area_entered" from="ExplosionTriggerRange" to="." method="_on_explosion_trigger_range_area_entered"]
 [connection signal="area_exited" from="ExplosionTriggerRange" to="." method="_on_explosion_trigger_range_area_exited"]

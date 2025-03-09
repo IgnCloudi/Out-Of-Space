@@ -17,8 +17,9 @@ func _process(delta: float) -> void:
 
 func _on_ship_pressed() -> void:
 	if GlobalSingleton.IronInInven >= IronReq and GlobalSingleton.PlasmaInInven >= PlasmaReq and GlobalSingleton.CrystalInInven >= CrystalReq:
-		GlobalSingleton.DropItem("Iron",GlobalSingleton.IronSlot, 5)
-		GlobalSingleton.DropItem("Plasma",GlobalSingleton.PlasmaSlot, 2)
-		GlobalSingleton.DropItem("Crystal",GlobalSingleton.CrystalSlot, 3)
+		GlobalSingleton.DropItem("Iron",get_parent().get_node("Inventory").IronSlot, IronReq)
+		GlobalSingleton.DropItem("Plasma",get_parent().get_node("Inventory").PlasmaSlot, PlasmaReq)
+		GlobalSingleton.DropItem("Crystal",get_parent().get_node("Inventory").CrystalSlot, CrystalReq)
+		GlobalSingleton.emit_signal("MakeShip")
 	else:
-		pass #not enough items
+		Player.NotEnoughItems()

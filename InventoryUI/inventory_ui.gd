@@ -4,7 +4,8 @@ signal ItemAdded
 signal ItemDropped
 
 @onready var Grid: GridContainer = $MarginContainer/GridContainer
-
+@onready var HealthBar: ProgressBar = $HealthBar
+@onready var ScoreButton: Button = $ScoreButton
 
 var EmptySlot = preload("res://InventoryUI/item_slot.tscn")
 
@@ -21,7 +22,9 @@ var CrystalSlot: Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GlobalSingleton.ScoreButton = ScoreButton
 	GlobalSingleton.Inventory = self
+	GlobalSingleton.HealthBar = HealthBar
 	ItemAdded.connect(OnItemAdded)
 	ItemDropped.connect(OnItemDropped)
 
@@ -111,3 +114,7 @@ func OnItemDropped(Item, ItemSlot, Amt):
 				ItemSlot.get_node("InteractivePanel").get_node("DropText").text = "Drop: 0"
 				ItemSlot.get_node("InteractivePanel").get_node("VSlider").max_value = CurAmt
 				ItemSlot.get_node("InteractivePanel").get_node("VSlider").value = 0
+
+
+func _on_health_bar_value_changed(value: float) -> void:
+	GlobalSingleton.HealthUpdated(value)

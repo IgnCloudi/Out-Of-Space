@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0hleu106t75e"]
+[gd_scene load_steps=11 format=3 uid="uid://d0hleu106t75e"]
 
 [ext_resource type="Script" path="res://SpaceBodies/Earth/earth.gd" id="1_aycg6"]
 [ext_resource type="Texture2D" uid="uid://cud1lqvmxwij7" path="res://SpaceBodies/Earth/EarthFig.svg" id="2_gqrhx"]
 [ext_resource type="Texture2D" uid="uid://dr6ir411a1d2e" path="res://SpaceBodies/Earth/Buildings.svg" id="3_uqqkk"]
+[ext_resource type="PackedScene" uid="uid://d2ku6hq0yay8j" path="res://SpaceBodies/UpgradeStation/SpaceStation.tscn" id="4_08mno"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bw4nn"]
 radius = 128.0
@@ -18,6 +19,12 @@ size = Vector2(107.011, 77.7241)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qqorp"]
 radius = 280.0
+
+[sub_resource type="Curve2D" id="Curve2D_xik3j"]
+_data = {
+"points": PackedVector2Array(-826.759, -1.68657, 826.759, 1.68657, 1.52588e-05, -1152, 0.469364, -688.873, -0.469364, 688.873, 1536, 0, 825.392, 0.881703, -825.392, -0.881703, 56, 1152, 0, 688.522, 0, -688.522, -1536, 0, -826.4, 2.70951, 826.4, -2.70951, 1.52588e-05, -1152)
+}
+point_count = 5
 
 [node name="Earth" type="CharacterBody2D"]
 script = ExtResource("1_aycg6")
@@ -77,6 +84,19 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DepositArea"]
 shape = SubResource("CircleShape2D_qqorp")
+
+[node name="StationPath" type="Path2D" parent="."]
+position = Vector2(-3.8147e-06, 0)
+scale = Vector2(0.25, 0.25)
+curve = SubResource("Curve2D_xik3j")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="StationPath"]
+position = Vector2(1.52588e-05, -1152)
+rotation = 0.00203992
+
+[node name="SpaceStation" parent="." instance=ExtResource("4_08mno")]
+position = Vector2(0, -288)
+scale = Vector2(1.25, 1.25)
 
 [connection signal="body_entered" from="DepositArea" to="." method="_on_deposit_area_body_entered"]
 [connection signal="body_exited" from="DepositArea" to="." method="_on_deposit_area_body_exited"]

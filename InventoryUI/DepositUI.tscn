@@ -55,6 +55,7 @@ offset_top = 64.0
 offset_right = 864.0
 offset_bottom = 684.0
 scale = Vector2(0.1, 0.1)
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
@@ -69,35 +70,9 @@ offset_left = 137.143
 offset_top = 617.143
 offset_right = 505.143
 offset_bottom = 800.143
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 text = "Iron: 5"
-
-[node name="Button2" type="Button" parent="Control/Iron"]
-layout_mode = 0
-offset_left = 1142.86
-offset_top = 622.857
-offset_right = 2051.86
-offset_bottom = 805.857
-theme_override_font_sizes/font_size = 128
-text = "Solar Plasma: 2"
-
-[node name="Button3" type="Button" parent="Control/Iron"]
-layout_mode = 0
-offset_left = 2262.86
-offset_top = 617.143
-offset_right = 3537.86
-offset_bottom = 800.143
-theme_override_font_sizes/font_size = 128
-text = "Crystalized Carbon: 3"
-
-[node name="Button4" type="Button" parent="Control/Iron"]
-layout_mode = 0
-offset_left = 3748.57
-offset_top = 617.143
-offset_right = 4579.57
-offset_bottom = 800.143
-theme_override_font_sizes/font_size = 128
-text = "Escort Ship: 1"
 
 [node name="Plus" type="Button" parent="Control"]
 layout_mode = 0
@@ -106,6 +81,7 @@ offset_top = 64.0
 offset_right = 928.0
 offset_bottom = 684.0
 scale = Vector2(0.1, 0.1)
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
@@ -122,6 +98,7 @@ offset_top = 64.0
 offset_right = 992.0
 offset_bottom = 684.0
 scale = Vector2(0.1, 0.1)
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
@@ -130,6 +107,16 @@ icon = ExtResource("4_qjw7b")
 icon_alignment = 1
 expand_icon = true
 
+[node name="Button2" type="Button" parent="Control/Plasma"]
+layout_mode = 0
+offset_left = -137.14
+offset_top = 622.857
+offset_right = 806.86
+offset_bottom = 805.857
+focus_mode = 0
+theme_override_font_sizes/font_size = 128
+text = "Solar Plasma: 2"
+
 [node name="Plus2" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 416.0
@@ -137,6 +124,7 @@ offset_top = 64.0
 offset_right = 1056.0
 offset_bottom = 684.0
 scale = Vector2(0.1, 0.1)
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
@@ -153,6 +141,7 @@ offset_top = 64.0
 offset_right = 1120.0
 offset_bottom = 684.0
 scale = Vector2(0.1, 0.1)
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
@@ -161,6 +150,16 @@ icon = ExtResource("5_pk4jv")
 icon_alignment = 1
 expand_icon = true
 
+[node name="Button3" type="Button" parent="Control/Crystal"]
+layout_mode = 0
+offset_left = -297.14
+offset_top = 617.143
+offset_right = 1012.86
+offset_bottom = 800.143
+focus_mode = 0
+theme_override_font_sizes/font_size = 128
+text = "Crystalized Carbon: 3"
+
 [node name="EqualTo" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 544.0
@@ -168,6 +167,7 @@ offset_top = 64.0
 offset_right = 1184.0
 offset_bottom = 684.0
 scale = Vector2(0.1, 0.1)
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
@@ -184,6 +184,7 @@ offset_top = 64.0
 offset_right = 1248.0
 offset_bottom = 684.0
 scale = Vector2(0.1, 0.1)
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 theme_override_styles/hover = SubResource("StyleBoxTexture_xt01x")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lwbo5")
@@ -191,5 +192,15 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_lwbo5")
 icon = ExtResource("6_nxwo2")
 icon_alignment = 1
 expand_icon = true
+
+[node name="Button4" type="Button" parent="Control/Ship"]
+layout_mode = 0
+offset_left = -91.4297
+offset_top = 617.143
+offset_right = 739.57
+offset_bottom = 800.143
+focus_mode = 0
+theme_override_font_sizes/font_size = 128
+text = "Escort Ship: 1"
 
 [connection signal="pressed" from="Control/Ship" to="." method="_on_ship_pressed"]

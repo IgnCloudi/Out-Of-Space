@@ -1,6 +1,8 @@
 extends Node
 
-var InvenCurMax: int = 20
+signal MakeShip
+
+var InvenCurMax: int = 5
 var InvenCurOccupied: int = 0
 
 var IronTakes: int = 1
@@ -12,16 +14,25 @@ var CrystalTakes: int = 2
 @export var CrystalInInven: int 
 
 @export var Inventory: Control
+var ScoreButton: Button
+var Score = 0
 
 var PlayerInvenBar: TextureProgressBar
 var PlayerCanvas: CanvasLayer
-#and add that variable in this arr at the start of UpdateInven
-#var ItemsInInven: Array = []
+
+var HealthBar: ProgressBar
+var PlayerHealth: float = 100
+
+
+func HealthUpdated(value):
+	if value <= 0:
+		print("DIE")
+
+
 
 func _ready() -> void:
-	await get_tree().create_timer(10).timeout
-	InvenCurMax = 50
-	UpdateMainBar()
+	await get_tree().create_timer(3).timeout
+	PlayerCanvas.get_parent().Speed += 1000
 	pass
 
 func AddItem(Item, Amt:int = 1):
@@ -59,7 +70,9 @@ func UpdateMainBar():
 	ValTween.parallel().tween_property(PlayerInvenBar,"max_value",InvenCurMax,.5).set_trans(Tween.TRANS_CUBIC)
 	PlayerCanvas.get_node("InventoryBarText").text = str(InvenCurOccupied) + "\n" + str(InvenCurMax)
 
-
+func UpdateScore():
+	Score+=500
+	ScoreButton.text = "Score: " + str(Score)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

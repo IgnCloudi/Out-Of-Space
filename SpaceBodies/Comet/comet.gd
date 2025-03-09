@@ -1,9 +1,9 @@
-extends CharacterBody2D
+extends GPUParticles2D
 
 var MaxPoints = 50
-@onready var TrailLine: Line2D = $TrailLine
-@onready var Comet: Sprite2D = $Comet
-@onready var TrailPointTimer: Timer = $TrailPointTimer
+@onready var TrailLine: Line2D = $"../TrailLine"
+@onready var Comet: Sprite2D = $"../Comet"
+@onready var TrailPointTimer: Timer =$"../TrailPointTimer"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

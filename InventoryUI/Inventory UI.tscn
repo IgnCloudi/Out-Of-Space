@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://deg1nkpy0w7t1"]
+[gd_scene load_steps=3 format=3 uid="uid://deg1nkpy0w7t1"]
 
 [ext_resource type="Script" path="res://InventoryUI/inventory_ui.gd" id="1_ws6bb"]
-[ext_resource type="PackedScene" uid="uid://dryv24a34flqs" path="res://InventoryUI/item_slot.tscn" id="2_se42r"]
 [ext_resource type="Texture2D" uid="uid://ddn6rehk87wk0" path="res://InventoryUI/InvenBG.png" id="2_tb5js"]
 
 [node name="Inventory" type="Control"]
@@ -32,13 +31,30 @@ offset_bottom = 576.0
 scale = Vector2(0.975, 0.975)
 texture = ExtResource("2_tb5js")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="."]
 layout_mode = 2
 offset_left = 1052.0
 offset_top = 184.0
 offset_right = 1104.0
 offset_bottom = 475.0
+value = 100.0
 fill_mode = 3
+show_percentage = false
+
+[node name="Button" type="Button" parent="HealthBar"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 37.0
+offset_bottom = 226.0
+mouse_filter = 2
+text = "H
+E
+A
+L
+T
+H"
+flat = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -53,11 +69,15 @@ theme_override_constants/h_separation = 160
 theme_override_constants/v_separation = 160
 columns = 5
 
-[node name="ItemSlot" parent="MarginContainer/GridContainer" instance=ExtResource("2_se42r")]
-layout_mode = 2
+[node name="ScoreButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 668.0
+offset_top = 108.0
+offset_right = 849.0
+offset_bottom = 180.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 46
+text = "Score: 0"
+flat = true
 
-[node name="ItemSlot2" parent="MarginContainer/GridContainer" instance=ExtResource("2_se42r")]
-layout_mode = 2
-
-[node name="ItemSlot3" parent="MarginContainer/GridContainer" instance=ExtResource("2_se42r")]
-layout_mode = 2
+[connection signal="value_changed" from="HealthBar" to="." method="_on_health_bar_value_changed"]

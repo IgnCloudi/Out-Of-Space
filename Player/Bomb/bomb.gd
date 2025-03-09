@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 var RotFull: int = 360
+@onready var ExplosionSound: AudioStreamPlayer = $ExplosionSound
 
 var SpawnCoolDownOver: bool = false
 var Thrown: bool = false
@@ -62,6 +63,7 @@ func Throw(Loc): #Loc is the marker on the lef or the right side of the ship
 
 func _on_explosion_trigger_range_body_entered(body: Node2D) -> void:
 	if Thrown and body != self:
+		ExplosionSound.play()
 		Explode()
 
 func _on_spawn_cool_down_timeout() -> void:
@@ -119,7 +121,6 @@ func _on_auto_explosion_timer_timeout() -> void:
 
 
 func OnExplosionRingEnded() -> void:
-	print('?D?D?')
 	Thrown = false
 	Sprite.scale = Vector2.ZERO
 	ExplosionRing.scale = Vector2.ZERO

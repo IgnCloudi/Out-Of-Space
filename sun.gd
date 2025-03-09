@@ -23,8 +23,11 @@ var Selected: int
 var SolarParticles: Array
 var SolarFlareEmitting: bool = false
 
+var Dmg: bool = false
+
 func _process(delta: float) -> void:
-	pass#print($SolarFlareTopLeft/Area2D.get_collision_mask_value(2))
+	if Dmg:
+		GlobalSingleton.HealthBar.value -= .2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -70,22 +73,42 @@ func _on_solar_flare_cooldown_timeout() -> void:
 
 func _on_solar_flare_duration_timeout() -> void:
 	SolarParticles[Selected].get_child(0).set_monitoring(false)
+	Dmg = false
 	SolarFlareEmitting = false
 	SolarParticles[Selected].emitting = false
 	SolarFlareCoolDownTimer.start()
 
 func _on_top_left_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		print("DMG")
+		Dmg = true
 
 func _on_top_right_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		print("DMG")
+		Dmg = true
 
 func _on_bottom_left_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		print("DMG")
+		Dmg = true
 
 func _on_bottom_right_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		print("DMG")
+		Dmg = true
+
+
+func _on_top_left_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		Dmg = false
+
+
+func _on_top_right_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		Dmg = false
+
+func _on_bottom_left_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		Dmg = false
+
+
+func _on_bottom_right_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		Dmg = false

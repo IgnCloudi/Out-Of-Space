@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b6bd5cf2ylii8"]
+[gd_scene load_steps=28 format=3 uid="uid://b6bd5cf2ylii8"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_dwdmo"]
 [ext_resource type="Texture2D" uid="uid://drnxb7aytw4uf" path="res://Player/PlayerRotated-Sheet.png" id="2_rskfc"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://dirrjmo13tk61" path="res://InventoryUI/InvenBarFilling1.png" id="6_myd1c"]
 [ext_resource type="FontFile" uid="uid://c0wf4hyycalyq" path="res://Fonts/orbitron-font/OrbitronBlack-n6dV.ttf" id="8_17u85"]
 [ext_resource type="Texture2D" uid="uid://b4v2k6fnuiic5" path="res://MainUI/MainUI.png" id="9_7nfb0"]
+[ext_resource type="Texture2D" uid="uid://da02xxwd0b3ax" path="res://Player/You.png" id="11_ueyu7"]
+[ext_resource type="PackedScene" uid="uid://c1qpaa6kw7bkh" path="res://SpaceBodies/UpgradeStation/upgrades_ui.tscn" id="11_ws7g5"]
+[ext_resource type="AudioStream" uid="uid://44u8stii04x7" path="res://SFX/Jet.mp3" id="13_bxlxn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a3wbj"]
 radius = 24.0
@@ -36,7 +39,7 @@ animations = [{
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.808511, 0.736264), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_8nsym"]
+[sub_resource type="CurveTexture" id="CurveTexture_h5elw"]
 curve = SubResource("Curve_bllfa")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wa01u"]
@@ -48,7 +51,7 @@ initial_velocity_max = 15.0
 gravity = Vector3(0, 0, 0)
 scale_min = 3.0
 scale_max = 7.0
-scale_curve = SubResource("CurveTexture_8nsym")
+scale_curve = SubResource("CurveTexture_h5elw")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tpott"]
 radius = 216.0
@@ -162,6 +165,7 @@ offset_right = -1008.0
 offset_bottom = 376.0
 
 [node name="BagBGInside" type="NinePatchRect" parent="CanvasLayer"]
+modulate = Color(0.303233, 0.303233, 0.303233, 1)
 offset_left = 48.0
 offset_top = 88.0
 offset_right = 128.0
@@ -180,7 +184,6 @@ offset_right = 132.0
 offset_bottom = 587.0
 scale = Vector2(0.662, 0.935)
 step = 0.1
-value = 100.0
 fill_mode = 3
 nine_patch_stretch = true
 stretch_margin_left = 40
@@ -239,6 +242,67 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_glcq2")
 theme_override_styles/normal = SubResource("StyleBoxTexture_glcq2")
 text = "Left Mouse / Q: 💥"
 
+[node name="Button2" type="Button" parent="CanvasLayer/Controls"]
+layout_mode = 0
+offset_left = 984.0
+offset_top = 96.0
+offset_right = 2424.0
+offset_bottom = 716.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ksmg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_glcq2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_glcq2")
+text = "RightClick / E: 💥"
+
+[node name="Button3" type="Button" parent="CanvasLayer/Controls"]
+layout_mode = 0
+offset_left = 984.0
+offset_top = 168.0
+offset_right = 2424.0
+offset_bottom = 788.0
+scale = Vector2(0.1, 0.1)
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ksmg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_glcq2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_glcq2")
+text = "Tab: Inventory"
+
+[node name="NotEnoughItems" type="Button" parent="CanvasLayer"]
+z_index = 1
+anchors_preset = -1
+anchor_right = 0.007
+offset_left = 336.0
+offset_top = 208.0
+offset_right = 806.936
+offset_bottom = 437.0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(239.5, 114.5)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_7ksmg")
+text = "Not Enough Items.."
+
+[node name="TimerToRemove" type="Timer" parent="CanvasLayer/NotEnoughItems"]
+
+[node name="PressTab" type="Button" parent="CanvasLayer"]
+offset_left = -144.0
+offset_top = 216.0
+offset_right = 1296.0
+offset_bottom = 836.0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(720, 310)
+theme_override_font_sizes/font_size = 200
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ksmg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_glcq2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_glcq2")
+text = "Press Tab"
+
+[node name="UpgradesUI" parent="CanvasLayer" instance=ExtResource("11_ws7g5")]
+offset_left = 576.0
+offset_top = 1008.0
+offset_right = 1035.94
+offset_bottom = 1424.0
+
 [node name="Stars" type="GPUParticles2D" parent="."]
 scale = Vector2(3, 3)
 amount = 75
@@ -251,5 +315,23 @@ position = Vector2(0, -24)
 [node name="RightBombSpawnLoc" type="Marker2D" parent="."]
 position = Vector2(0, 24)
 
+[node name="TransitionalNZoomCam" type="Camera2D" parent="."]
+top_level = true
+
+[node name="You" type="Sprite2D" parent="."]
+top_level = true
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("11_ueyu7")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../You")
+update_rotation = false
+update_scale = false
+
+[node name="JetNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_bxlxn")
+volume_db = -80.0
+
 [connection signal="area_entered" from="ItemPickup" to="." method="_on_item_pickup_area_entered"]
 [connection signal="area_exited" from="ItemPickup" to="." method="_on_item_pickup_area_exited"]
+[connection signal="timeout" from="CanvasLayer/NotEnoughItems/TimerToRemove" to="." method="_on_timer_to_remove_timeout"]

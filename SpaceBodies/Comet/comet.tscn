@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5mwfjsbfbvly"]
+[gd_scene load_steps=12 format=3 uid="uid://c5mwfjsbfbvly"]
 
+[ext_resource type="Script" path="res://World/PlanetScript.gd" id="1_7okb0"]
 [ext_resource type="Script" path="res://SpaceBodies/Comet/comet.gd" id="1_why8y"]
 [ext_resource type="Texture2D" uid="uid://cksdc6otgigjn" path="res://SpaceBodies/Comet/Comet.svg" id="2_1pe0u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_blnga"]
-radius = 32.0
+radius = 46.0109
 
 [sub_resource type="Curve" id="Curve_0wllt"]
 _data = [Vector2(0, 0.24611), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -39,8 +40,11 @@ scale_max = 14.0
 scale_curve = SubResource("CurveTexture_8nsym")
 color_ramp = SubResource("GradientTexture1D_15vhw")
 
-[node name="Comet" type="CharacterBody2D"]
-script = ExtResource("1_why8y")
+[sub_resource type="CircleShape2D" id="CircleShape2D_3jr5q"]
+radius = 48.0
+
+[node name="Comet" type="CharacterBody2D" groups=["GivesCrystal", "ItemGiver"]]
+script = ExtResource("1_7okb0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_blnga")
@@ -59,10 +63,6 @@ gradient = SubResource("Gradient_j6sxa")
 joint_mode = 2
 end_cap_mode = 2
 
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(5, 5)
-zoom = Vector2(0.1, 0.1)
-
 [node name="TrailPointTimer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
@@ -73,5 +73,13 @@ rotation = -1.57079
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_db38n")
 lifetime = 10.0
+script = ExtResource("1_why8y")
 
-[connection signal="timeout" from="TrailPointTimer" to="." method="_on_trail_point_timer_timeout"]
+[node name="ItemThrower" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemThrower"]
+shape = SubResource("CircleShape2D_3jr5q")
+
+[connection signal="timeout" from="TrailPointTimer" to="TrailParticles" method="_on_trail_point_timer_timeout"]
+[connection signal="body_entered" from="ItemThrower" to="." method="_on_item_thrower_body_entered"]
